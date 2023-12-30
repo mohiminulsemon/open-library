@@ -20,6 +20,8 @@ from books.models import Book
 
 from transactions.models import Transaction
 from transactions.constants import BORROWED
+
+from .models import UserLibraryAccount
 # Create your views here.
 
 
@@ -60,7 +62,7 @@ class UserProfileView(LoginRequiredMixin,View):
         borrowers = Book.objects.filter(borrowers=request.user)
 
         transaction_history = Transaction.objects.filter(
-            account=request.user.userlibraryaccount,
+            account=request.user.account,
             transaction_type=BORROWED
         ).order_by('-timestamp')
 
